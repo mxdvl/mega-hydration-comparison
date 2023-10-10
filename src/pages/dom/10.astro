@@ -1,0 +1,30 @@
+<h1>10 elements with DOM</h1>
+
+<ul>
+  {
+    Array.from({ length: 10 }).map(() => (
+      <li>
+        <time>10s ago</time>
+      </li>
+    ))
+  }
+</ul>
+
+<script type="module">
+  console.log("Hello");
+</script>
+
+<style>
+  ul {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-auto-rows: 100px;
+    list-style-type: none;
+    gap: 1rem;
+    padding: 0;
+  }
+
+  li {
+    background-color: #eee;
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import { RelativeTime } from "../../components/RelativeTime";
+const now = Date.now();
+---
+
+<h1>10 elements with Preact</h1>
+
+<ul>
+  {
+    Array.from({ length: 10 }).map(() => (
+      <li>
+        <RelativeTime client:visible then={now - 10_000} {now} />
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  ul {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-auto-rows: 100px;
+    list-style-type: none;
+    gap: 1rem;
+    padding: 0;
+  }
+
+  li {
+    background-color: #eee;
+  }
+</style>
