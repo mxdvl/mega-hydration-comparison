@@ -1,9 +1,12 @@
 ---
+import { timeAgo } from "@guardian/libs";
 import Header from "../../components/Header.astro";
 
 export { getStaticPaths } from "../../lib/counts";
 
 const { count } = Astro.params;
+
+const now = Date.now();
 ---
 
 <Header />
@@ -11,17 +14,22 @@ const { count } = Astro.params;
 <h1>{count} elements with DOM</h1>
 <ul>
   {
-    Array.from({ length: Number(count) }).map(() => (
-      <li>
-        <time>10s ago</time>
-      </li>
-    ))
+    Array.from({ length: Number(count) }, (_, i) => now - 1000 * (i + 1)).map(
+      (then) => (
+        <li>
+          <time
+            data-relativeformat="med"
+            datetime={new Date(then).toISOString()}
+          >
+            {timeAgo(then)}
+          </time>
+        </li>
+      )
+    )
   }
 </ul>
 
-<script type="module">
-  console.log("Hello");
-</script>
+<script src="../../lib/main.ts"></script>
 
 <style>
   ul {

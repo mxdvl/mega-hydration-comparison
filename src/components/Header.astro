@@ -6,7 +6,7 @@ import { counts } from "../lib/counts";
   <ul>
     {
       counts.map((count) => (
-        <li>
+        <li class:list={{ current: count === Number(Astro.params.count) }}>
           {count}
           <a href={`/preact/${count}`}>Preact</a>/
           <a href={`/dom/${count}`}>DOM</a>
@@ -19,20 +19,23 @@ import { counts } from "../lib/counts";
 <style>
   ul {
     margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
     font-size: 20px;
     line-height: 1.6;
     display: flex;
+    flex-wrap: wrap;
     list-style-type: none;
-    padding: 0;
-    gap: 1rem;
+    padding: 0.25rem;
+    gap: 1rem 2rem;
+    justify-content: center;
   }
 
   li {
     display: flex;
     gap: 0.25rem;
+  }
+
+  li.current {
+    background-color: #eee;
   }
 
   a {

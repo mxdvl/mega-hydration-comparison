@@ -14,11 +14,13 @@ const now = Date.now();
 
 <ul>
   {
-    Array.from({ length: Number(count) }).map(() => (
-      <li>
-        <RelativeTime client:visible then={now - 10_000} {now} />
-      </li>
-    ))
+    Array.from({ length: Number(count) }, (_, i) => now - 1000 * (i + 1)).map(
+      (then) => (
+        <li>
+          <RelativeTime client:visible then={then} {now} />
+        </li>
+      )
+    )
   }
 </ul>
 
