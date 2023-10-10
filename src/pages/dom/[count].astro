@@ -29,7 +29,11 @@ const now = Date.now();
   }
 </ul>
 
-<script src="../../lib/main.ts"></script>
+<script>
+  import { relativeTime } from "../../lib/relativeTime";
+
+  relativeTime();
+</script>
 
 <style>
   ul {

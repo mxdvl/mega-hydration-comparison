@@ -9,7 +9,7 @@ import { counts } from "../lib/counts";
         <li class:list={{ current: count === Number(Astro.params.count) }}>
           {count}
           <a href={`/preact/${count}`}>Preact</a>/
-          <a href={`/dom/${count}`}>DOM</a>
+          <a href={`/dom/${count}`}>DOM</a>/<a href={`/raf/${count}`}>RAF</a>
         </li>
       ))
     }
