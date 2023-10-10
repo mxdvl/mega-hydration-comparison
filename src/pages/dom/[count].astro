@@ -1,8 +1,17 @@
-<h1>10 elements with DOM</h1>
+---
+import Header from "../../components/Header.astro";
 
+export { getStaticPaths } from "../../lib/counts";
+
+const { count } = Astro.params;
+---
+
+<Header />
+
+<h1>{count} elements with DOM</h1>
 <ul>
   {
-    Array.from({ length: 10 }).map(() => (
+    Array.from({ length: Number(count) }).map(() => (
       <li>
         <time>10s ago</time>
       </li>

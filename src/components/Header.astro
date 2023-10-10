@@ -1,0 +1,41 @@
+---
+import { counts } from "../lib/counts";
+---
+
+<header>
+  <ul>
+    {
+      counts.map((count) => (
+        <li>
+          {count}
+          <a href={`/preact/${count}`}>Preact</a>/
+          <a href={`/dom/${count}`}>DOM</a>
+        </li>
+      ))
+    }
+  </ul>
+</header>
+
+<style>
+  ul {
+    margin: auto;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    font-size: 20px;
+    line-height: 1.6;
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    gap: 1rem;
+  }
+
+  li {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  a {
+    color: inherit;
+  }
+</style>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
-import { useIsInView } from "../lib/useIsInView";
+// import { useIsInView } from "../lib/useIsInView";
 
 type Props = {
   /** the time to compare with in milliseconds since epoch */
@@ -55,12 +55,16 @@ const timeAgo = ({
 export const RelativeTime = ({ now, then }: Props) => {
   const { length, unit } = duration({ then, now });
 
-  const [inView, ref] = useIsInView({ repeat: true });
+  //   const [inView, ref] = useIsInView({ repeat: true });
   const [time, setTime] = useState(now);
 
   const [display, setDisplay] = useState(
     timeAgo({ length, unit, date: new Date(then) })
   );
+
+  useEffect(() => {
+    setTime(Date.now());
+  }, []);
 
   useEffect(() => {
     // if (!inView) return;
@@ -75,13 +79,17 @@ export const RelativeTime = ({ now, then }: Props) => {
       setTime(Date.now());
     }, Math.max(units[newTime.unit], 5_000));
     return () => clearTimeout(timeout);
-  }, [inView, then, time]);
+  }, [
+    then,
+    time,
+    // inView
+  ]);
 
   const date = new Date(then);
 
   return (
     <time
-      ref={ref}
+      //   ref={ref}
       dateTime={date.toISOString()}
       title={date.toLocaleDateString("en-GB", {
         hour: "2-digit",

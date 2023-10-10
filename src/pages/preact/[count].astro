@@ -1,13 +1,20 @@
 ---
+import Header from "../../components/Header.astro";
 import { RelativeTime } from "../../components/RelativeTime";
+export { getStaticPaths } from "../../lib/counts";
+
+const { count } = Astro.params;
+
 const now = Date.now();
 ---
 
-<h1>10 elements with Preact</h1>
+<Header />
+
+<h1>{count} elements with Preact</h1>
 
 <ul>
   {
-    Array.from({ length: 10 }).map(() => (
+    Array.from({ length: Number(count) }).map(() => (
       <li>
         <RelativeTime client:visible then={now - 10_000} {now} />
       </li>
