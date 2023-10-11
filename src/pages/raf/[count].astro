@@ -36,29 +36,35 @@ const now = Date.now();
     ...document.querySelectorAll<HTMLTimeElement>("time[data-relative-format]"),
   ];
 
-  const updateElements = () => {
-    for (const time of times) {
-      requestAnimationFrame(() => {
-        const { relativeFormat } = time.dataset;
-        const absoluteTime = time.dateTime;
-        if (!absoluteTime || !relativeFormat) return;
+  const updateElement = (time: HTMLTimeElement) => {
+    const { relativeFormat } = time.dataset;
+    const absoluteTime = time.dateTime;
+    if (!absoluteTime || !relativeFormat) return;
 
-        const newTime = timeAgo(new Date(absoluteTime).getTime(), {
-          verbose: false,
-        });
+    const newTime = timeAgo(new Date(absoluteTime).getTime(), {
+      verbose: false,
+    });
 
-        const oldTime = time.innerText;
-        if (newTime !== false && newTime !== oldTime) time.innerText = newTime;
-      });
-    }
+    const oldTime = time.innerText;
+    if (newTime === false || newTime == oldTime) return;
+
+    requestAnimationFrame(() => {
+      time.innerText = newTime;
+    });
   };
 
-  updateElements();
-  setInterval(updateElements, 5_000);
+  for (const time of times) {
+    setTimeout(() => updateElement(time), 0);
+    setInterval(() => updateElement(time), 1_000);
+  }
 
-  // new MutationObserver((records, observer) => {
-  //   console.log({ records, observer });
-  // });
+  new MutationObserver((records, observer) => {
+    console.log({ records, observer });
+    for (const record of records) {
+      if (record.type !== "childList") return;
+      console.log(record.addedNodes);
+    }
+  }).observe(document.body, { childList: true });
 </script>
 
 <style>
