@@ -75,9 +75,13 @@ export const RelativeTime = ({ now, then }: Props) => {
 
     setDisplay(timeAgo({ ...newTime, date: new Date(then) }));
 
-    const timeout = setTimeout(() => {
-      setTime(Date.now());
-    }, Math.max(units[newTime.unit], 5_000));
+    const timeout = setTimeout(
+      () => {
+        setTime(Date.now());
+      },
+      // Math.max(units[newTime.unit], 1_000)
+      1_000
+    );
     return () => clearTimeout(timeout);
   }, [
     then,
