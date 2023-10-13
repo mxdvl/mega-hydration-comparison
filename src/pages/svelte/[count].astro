@@ -1,0 +1,41 @@
+---
+import Header from "../../components/Header.astro";
+import RelativeTime from "../../components/RelativeTime.svelte";
+export { getStaticPaths } from "../../lib/counts";
+
+const { count } = Astro.params;
+
+const now = Date.now();
+---
+
+<Header />
+
+<h1>{count} elements with Svelte</h1>
+
+<ul>
+  {
+    Array.from({ length: Number(count) }, (_, i) => now - 1000 * (i + 1)).map(
+      (then) => (
+        <li>
+          <RelativeTime client:load {then} {now} />
+        </li>
+      )
+    )
+  }
+</ul>
+
+<style>
+  ul {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-auto-rows: 100px;
+    list-style-type: none;
+    gap: 1rem;
+    padding: 0;
+  }
+
+  li {
+    background-color: #eee;
+    overflow: hidden;
+  }
+</style>

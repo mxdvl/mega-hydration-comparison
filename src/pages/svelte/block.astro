@@ -1,0 +1,15 @@
+---
+import Header from "../../components/Header.astro";
+import Blocking from "../../components/Blocking.svelte";
+export { getStaticPaths } from "../../lib/counts";
+
+const count = 10_000;
+
+const now = Date.now();
+---
+
+<Header />
+
+<h1>{count} elements with Svelte</h1>
+
+<Blocking client:load count={count} {now} />
